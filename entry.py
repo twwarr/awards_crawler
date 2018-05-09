@@ -1,18 +1,21 @@
-import requests
-from bs4 import BeautifulSoup
-import hashlib
+import json
+from src import css_design_awards
+# {
+#     "attachments": [
+#         {
+#             "color": "#f1efea",
+#             "pretext": "@here Hurry and Check it!",
+#             "author_name": "CSS Design Awards",
+#             "author_link": "https://www.cssdesignawards.com",
+#             "title": "Slack API Documentation",
+#             "title_link": "https://api.slack.com/",
+#             "text": "Optional text that appears within the attachment",
+#             "image_url": "https://www.cssdesignawards.com/cdasites/2018/201804/20180424023416.jpg",
+#             "ts": 1525874410
+#         }
+#     ]
+# }
 
 if __name__ == '__main__':
-    response = requests.get('https://www.cssdesignawards.com')
-    soup = BeautifulSoup(response.text, 'html5lib')
-    parent_element = soup.find(class_='home-wotd__wrapper')
-    title_element = parent_element.find(class_='home-wotd__title')
-    author_element = parent_element.find(class_='home-wotd__subtitle')
-    thumbnail_element = parent_element.find(
-        class_='home-wotd__thumbnail').find('img')
-    link_element = parent_element.find(class_='home-wotd__thumbnail').find('a')
-    print(title_element.string)
-    print(author_element.string)
-    print(f'https://www.cssdesignawards.com/{thumbnail_element["src"]}')
-    print(f'https://www.cssdesignawards.com{link_element["href"]}')
-    print(hashlib.md5(response.text.encode()).hexdigest())
+    css_design_awards_result = css_design_awards.get()
+    print(json.dumps(css_design_awards_result))
