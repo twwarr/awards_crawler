@@ -1,5 +1,5 @@
 import json
-from src import css_design_awards
+from src import css_design_awards, css_winner
 # {
 #     "attachments": [
 #         {
@@ -17,5 +17,8 @@ from src import css_design_awards
 # }
 
 if __name__ == '__main__':
-    css_design_awards_result = css_design_awards.get()
-    print(json.dumps(css_design_awards_result))
+    results = [
+        css_design_awards.get(),
+        css_winner.get(),
+    ]
+    print(json.dumps(results))

@@ -8,6 +8,7 @@ def get(prev_hash=''):
         response = requests.get('https://www.cssdesignawards.com')
     except Exception as error:
         print(error)
+        return
 
     current_hash = hashlib.md5(response.text.encode()).hexdigest()
     if prev_hash == current_hash:

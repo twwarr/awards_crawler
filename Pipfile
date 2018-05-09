@@ -25,6 +25,7 @@ rope = "*"
 "beautifulsoup4" = "*"
 requests = "*"
 "html5lib" = "*"
+feedparser = "*"
 
 [requires]
 python_version = "3.6"
