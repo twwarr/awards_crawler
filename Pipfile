@@ -4,6 +4,7 @@ verify_ssl = true
 name = "pypi"
 
 [scripts]
+s = "python -m"
 start = "python -m entry"
 watch = "python -m watch"
 test = "python -m unittest discover"
