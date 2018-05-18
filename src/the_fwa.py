@@ -13,10 +13,6 @@ def get(prev_hash=''):
         print(error)
         return
 
-    current_hash = hashlib.md5(response.text.encode()).hexdigest()
-    if prev_hash == current_hash:
-        return
-
     soup = BeautifulSoup(response.text, 'html5lib')
     js_code = soup.find('script').text.strip()
     remove_comment_code = re.sub('<!--.+-->', '', js_code)
@@ -27,6 +23,11 @@ def get(prev_hash=''):
         ],
         stdout=subprocess.PIPE)
     info = json.loads(node_response.stdout)
+
+    current_hash = hashlib.md5(
+        info['caseMenu'][0]['item']['title'].encode()).hexdigest()
+    if prev_hash == current_hash:
+        return
 
     return {
         'current_hash':

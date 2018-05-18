@@ -10,10 +10,6 @@ def get(prev_hash=''):
         print(error)
         return
 
-    current_hash = hashlib.md5(response.text.encode()).hexdigest()
-    if prev_hash == current_hash:
-        return
-
     soup = BeautifulSoup(response.text, 'html5lib')
     parent_element = soup.find(class_='home-wotd__wrapper')
     title_element = parent_element.find(class_='home-wotd__title')
@@ -21,6 +17,10 @@ def get(prev_hash=''):
     thumbnail_element = parent_element.find(
         class_='home-wotd__thumbnail').find('img')
     link_element = parent_element.find(class_='home-wotd__thumbnail').find('a')
+
+    current_hash = hashlib.md5(title_element.string.encode()).hexdigest()
+    if prev_hash == current_hash:
+        return
 
     return {
         'current_hash': current_hash,

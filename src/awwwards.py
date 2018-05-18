@@ -11,16 +11,16 @@ def get(prev_hash=''):
         print(error)
         return
 
-    current_hash = hashlib.md5(response.text.encode()).hexdigest()
-    if prev_hash == current_hash:
-        return
-
     soup = BeautifulSoup(response.text, 'html5lib')
     parent_element = soup.find(class_='js-collectable')
     data = json.loads(parent_element["data-model"])
     info_element = parent_element.find(class_='box-info')
     author_element = info_element.find(class_='by').find('strong')
     link_element = info_element.find(class_='content').find('a')
+
+    current_hash = hashlib.md5(data['title'].encode()).hexdigest()
+    if prev_hash == current_hash:
+        return
 
     return {
         'current_hash':
