@@ -6,7 +6,12 @@ import json
 
 def get(prev_hash=''):
     try:
-        response = requests.get('https://www.awwwards.com/websites/')
+        headers = {
+            'User-Agent':
+            'Mozilla/5.0 (Windows NT 6.3; WOW64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/45.0.2454.99 Safari/537.36'
+        }
+        response = requests.get(
+            'https://www.awwwards.com/websites/', headers=headers)
     except Exception as error:
         print(error)
         return
@@ -40,3 +45,7 @@ def get(prev_hash=''):
         'image_url':
         f'https://assets.awwwards.com/awards/media/cache/thumb_417_299/{data["images"]["thumbnail"]}'
     }
+
+
+if __name__ == '__main__':
+    print(get())
